@@ -1,12 +1,15 @@
 import { useRef, useState } from "react";
-import Image from "next/image"; // Import the Next.js Image component
+import Image from "next/image";
 import styles from "../styles/Carousel.module.css";
+
+// map index to link
+const indexToPage = ["time", ""];
 
 const Carousel = ({ totalSlides = 4 }: { totalSlides: number }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const handleControlClick = (index: number) => {
+  const handleControlHover = (index: number) => {
     setActiveSlide(index);
   };
 
@@ -29,35 +32,44 @@ const Carousel = ({ totalSlides = 4 }: { totalSlides: number }) => {
               key={i}
               className={`${styles.slide} ${isActive ? styles.active : ""}`}
               style={{
-                transform: `rotate(${adjustedAngle}deg) translateY(-50vh) rotate(${isActive ? -adjustedAngle : 0}deg)`,
+                transform: `rotate(${adjustedAngle}deg) translateY(-50vh) rotate(${
+                  isActive ? -adjustedAngle : 0
+                }deg)`,
                 transformOrigin: "center center",
               }}
             >
               <Image
-                src={`/images/food-img-${i + 1}.png`}
+                // src={`/images/carousel-img/${i + 1}.png`}
+                src={`/images/placeholder.png`}
                 alt={`Slide ${i + 1}`}
-                width={isActive ? 350 : 50} // Adjusted width for active and inactive slides
-                height={isActive ? 350 : 50} // Adjusted height for active and inactive slides
+                layout="intrinsic"
+                width={isActive ? 350 : 50}
+                height={isActive ? 350 : 50}
                 style={{
-                  transition: "all 1s",
+                  width: isActive ? "35vh" : "5vh",
+                  height: isActive ? "35vh" : "5vh",
+                  transition: "all 1.5s",
                 }}
               />
             </div>
           );
         })}
       </div>
+
       <div className={styles.controls}>
         {Array.from({ length: totalSlides }).map((_, i) => (
           <a
             key={i}
-            onClick={() => handleControlClick(i)}
+            href={`/${indexToPage[i]}`}
+            onMouseOver={() => handleControlHover(i)}
             className={`${i === activeSlide ? styles.active : ""}`}
           >
             <Image
-              src={`/images/control-img-${i + 1}.png`}
+              // src={`/images/control-img/${i + 1}.png`}
+              src={`/images/placeholder.png`}
               alt={`Control ${i + 1}`}
-              width={50}
-              height={50}
+              width={20}
+              height={20}
             />
           </a>
         ))}

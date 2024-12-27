@@ -1,9 +1,9 @@
 import Carousel from "@/components/Carousel";
 
-export default function Home() {
+export default function Time() {
   return (
     <div>
-      <Carousel totalSlides={8} />
+      <Carousel totalSlides={1} />
     </div>
   );
 }
